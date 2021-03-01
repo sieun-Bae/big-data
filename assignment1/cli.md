@@ -8,6 +8,23 @@ https://wikidocs.net/25326
 
 <br>
 <p>
+1. Estimate minimum Namenode RAM size for HDFS with 1 PB capacity, block size 64 MB, average metadata size for each block is 300 B, replication factor is 3. Provide the formula for calculations and the result.
+1PB / (64MB * 3) * 300 B = 1.56GB
+</p>
+<p>
+2. HDDs in your cluster have the following characteristics: average reading speed is 60 MB/s, seek time is 5 ms. You want to spend 0.5 % time for seeking the block, i.e. seek time should be 200 times less than the time to read the block. Estimate the minimum block size.
+block size: x
+max block reading time: 5ms * 200 = 1s
+reading speed: 60/1s = x/1s
+x = 60MB
+<br>
+Check the calculations and the result, they should both be correct.
+
+block_size / 60 MB/s * 0.5 / 100 >= 5 ms
+block_size >= 60 MB/s * 0.005 s / 0.005 = 60 MB
+So, the minimum block size is 60 MB or 64 MB.
+</p>
+<p>
 To complete this task use the 'HDFS CLI Playground' or online sandbox item.
 
 Create text file ‘test.txt’ in a local fs. Use HDFS CLI to make the following operations:
@@ -28,6 +45,25 @@ hdfs dfs -put ~/test.txt /assignment1/test.txt
 hdfs dfs -ls /assignment1
 hdfs dfs -chmod o-r /assignment1/test.txt
 hdfs dfs -mv /assignment1/test.txt /assignment1/test2.txthdfs dfs -cat /assignment1/test.txt | head -10
+
+<br>
+Check the commands, they should be like these:
+
+$ hdfs dfs -mkdir assignment1
+$ hdfs dfs -put test.txt assignment1/
+$ hdfs dfs -ls assignment1/test.txt or hdfs dfs -stat "%b %u" assignment1/test.txt
+$ hdfs dfs -chmod o-r assignment1/test.txt
+$ hdfs dfs -cat assignment1/test.txt | head -10
+$ hdfs dfs -mv assignment1/test.txt assignment1/test2.txt
+
+There can be the following differences:
+
+‘hdfs dfs’ and ‘hadoop fs’ are the same
+absolute paths are also allowed: ‘/user/<username>/assignment1/test.txt’ instead of ‘assignment1/test.txt’
+the permissions argument can be in an octal form, like 0640
+the ‘text’ command can be used instead of ‘cat’
+
+
 </code></pre>
 Use HDFS CLI to investigate the file ‘/data/wiki/en_articles_part/articles-part’ in HDFS:
 
@@ -35,6 +71,15 @@ Use HDFS CLI to investigate the file ‘/data/wiki/en_articles_part/articles-par
 <pre><code>
 hdfs fsck /data/wiki/en_articles_part/articles-part -files -blocks -locations </code></pre>
 
+<br>
+Blocks and locations of ‘/data/wiki/en_articles_part/articles-part’:
+
+$ hdfs fsck /data/wiki/en_articles_part/articles-part -files -blocks -locations
+Block information (block id may be different):
+$ hdfs fsck -blockId blk_1073971670
+It outputs the block locations, example (nodes list will be different):
+
+Block replica on datanode/rack: some_node_hostname/default-rack is HEALTHY
 Connecting to namenode via http://localhost:50070/fsck?ugi=root&files=1&blocks=1&locations=1&path=%2Fdata%2Fwiki%2Fen_articles_part%2Farticles-part
 FSCK started by root (auth:SIMPLE) from /127.0.0.1 for path /data/wiki/en_articles_part/articles-part at Mon Mar 01 06:25:58 GMT 2021
 /data/wiki/en_articles_part/articles-part 76861985 bytes, 1 block(s):  OK
@@ -86,3 +131,14 @@ FSCK ended at Mon Mar 01 06:27:24 GMT 2021 in 1 milliseconds
 
 
 The filesystem under path '/data/wiki/en_articles_part/articles-part' is HEALTHY
+
+<p>
+5. Look at the picture of Namenode web interface from a real Hadoop cluster.
+
+Show the total capacity of this HDFS installation, used space and total data nodes in the cluster.
+
+- total capacity : 1.44 TB
+- used space : 282.78 MB (0.02%)
+- total datanodes : 1.44 TB
+
+</p>
