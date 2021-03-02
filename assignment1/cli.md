@@ -141,4 +141,10 @@ Show the total capacity of this HDFS installation, used space and total data nod
 - used space : 282.78 MB (0.02%)
 - total datanodes : 1.44 TB
 
+<br>
+Total capacity: 2.14 TB
+
+Used space: 242.12 GB (=DFS Used) or 242.12+35.51 = 277.63 GB (=DFS Used + Non DFS Used) - the latter answer is more precise, but the former is also possible
+
+Data nodes in the cluster: 4
 </p>
