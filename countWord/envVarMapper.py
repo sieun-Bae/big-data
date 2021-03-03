@@ -18,6 +18,12 @@ for split_line_index, line in enumerate(sys.stdin):
 		print(line_number, line, sep='\t')
 '''
 
+##or to start with given "word pattern"
+'''
+pattern = re.compile(os.environ["word_pattern"])
+=> should give env var with -D option in shell script
+	ex) yarn jar $HADOOP_STREAMING_JAR -D word_pattern = "\w+\d+"
+'''
 for line in sys.stdin:
 	pass
 
