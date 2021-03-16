@@ -28,3 +28,27 @@ This path is on the remote machine which is a part of our infrastructure. Source
 
 <br>
 Handling junk lines:  > /dev/null
+
+<br>
+<p>
+<h2>Connecting docker</h2>
+
+tmux new -s my_docker
+docker run --rm -it -p 8888:8888 bigdatateam/hysh-full:py3-c1
+
+docker ps
+docker exec -it 9db318e92220 /bin/bash
+
+hdfs dfs -ls /data
+</p>
+<p>
+<h3>tmux commands</h3>
+tmux new -s <session>
+tmux a -t <session>
+tmux ls
+</p>
+<br>
+<h2>HDFS 명령어 정리</h2>
+https://blog.voidmainvoid.net/175
+https://wikidocs.net/25326
+<br>

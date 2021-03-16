@@ -1,12 +1,3 @@
-<h2>Connecting docker</h2>
-docker ps
-docker exec -it 9db318e92220 /bin/bash
-
-<h2>HDFS 명령어 정리</h2>
-https://blog.voidmainvoid.net/175
-https://wikidocs.net/25326
-
-<br>
 <p>
 1. Estimate minimum Namenode RAM size for HDFS with 1 PB capacity, block size 64 MB, average metadata size for each block is 300 B, replication factor is 3. Provide the formula for calculations and the result.
 1PB / (64MB * 3) * 300 B = 1.56GB
