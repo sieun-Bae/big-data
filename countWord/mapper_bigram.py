@@ -6,4 +6,3 @@ for line in sys.stdin:
 	words = re.split("\W+", content)
 	for index in range(len(words)-1):
 		print(words[index], words[index+1], 1, sep="\t")
-## memory 소요가 큼
