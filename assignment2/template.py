@@ -11,3 +11,6 @@ for line in sys.stdin:
 		continue
 	text = re.sub("^\W+|\W+$", "", text, flags=re.UNICODE)
     words = re.split("\W*\s+\W*", text, flags=re.UNICODE)
+    for word in words:
+    	eprint("reporter:counter:Wiki stats,Total words, %d"%1)
+    	print("%s\t%d"%(word.lower(), 1))
